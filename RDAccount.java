@@ -2,18 +2,18 @@ package com.wipro.bank.acc;
 
 public class RDAccount extends Account {
     public RDAccount(int tenure, float principal) {
-        this.tenure=tenure;
-        this.principal=principal;
-    }
-    public float calculateAmountDeposited() {
-        return principal*tenure*12;
+        this.tenure = tenure;
+     this.principal = principal;
     }
     public float calculateInterest() {
-        int months=tenure * 12;
-        float r=rateOfInterest;
-        return (principal*months*(months+1)*r)/(2*12*100);
+        int months = tenure * 12;
+        double i = rateOfInterest / (12 * 100);
+        double maturityAmount =
+        principal * ((Math.pow(1 + i, months) - 1) / i);
+        float totalDeposited = calculateAmountDeposited();
+        return (float) (maturityAmount - totalDeposited);
     }
-    public float calculateMaturityAmount() {
-        return calculateAmountDeposited()+calculateInterest();
+    public float calculateAmountDeposited() {
+        return principal * tenure * 12;
     }
 }
